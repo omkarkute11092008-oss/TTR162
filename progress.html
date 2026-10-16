@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Consistency & Streaks Hub | Zenith Goal Tracker</title>
+  <meta name="description" content="Track consecutive study streaks, visualize 7-day consistency charts, explore 30-day activity heatmaps, and unlock student achievement badges.">
+  
+  <!-- Modern Google Typography -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- Core Design System -->
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body id="progress-page-view">
+
+  <!-- Ambient Background Glows -->
+  <div class="ambient-glow">
+    <div class="glow-orb glow-orb-1" style="background: radial-gradient(circle, var(--accent-amber) 0%, transparent 70%);"></div>
+    <div class="glow-orb glow-orb-2"></div>
+  </div>
+
+  <!-- Sticky Glassmorphic Navbar -->
+  <header class="navbar">
+    <a href="index.html" class="nav-brand" title="Zenith Goal Tracker">
+      <div class="brand-icon">⚡</div>
+      <span class="brand-name">Zenith</span>
+      <span class="brand-tag">Consistency Hub</span>
+    </a>
+
+    <ul class="nav-links" id="nav-links">
+      <li>
+        <a href="index.html" class="nav-link">
+          <span>🎯</span> Dashboard
+        </a>
+      </li>
+      <li>
+        <a href="reality.html" class="nav-link">
+          <span>⚡</span> Reality Multiplier <span class="badge">AI Pad</span>
+        </a>
+      </li>
+      <li>
+        <a href="progress.html" class="nav-link active">
+          <span>🔥</span> Consistency & Streaks
+        </a>
+      </li>
+    </ul>
+
+    <div class="nav-actions">
+      <a href="index.html" class="btn btn-primary btn-sm">
+        <span>←</span> Today's Goals
+      </a>
+      <button class="btn-icon" id="theme-toggle" title="Toggle Light/Dark Theme">
+        ☀️
+      </button>
+      <button class="btn-icon mobile-menu-btn" id="mobile-menu-btn" title="Toggle Navigation Menu">
+        ☰
+      </button>
+    </div>
+  </header>
+
+  <!-- Main Container -->
+  <main class="container">
+
+    <!-- Hero Streak Wrap -->
+    <section class="streak-hero-wrap" aria-label="Streak Counter">
+      
+      <!-- Current Streak Card -->
+      <div class="stat-card" style="padding: 2rem;">
+        <span class="flame-icon-animated">🔥</span>
+        <div class="stat-info">
+          <span class="stat-label">Current Consecutive Streak</span>
+          <div class="stat-value" id="hero-current-streak" style="color: var(--accent-amber); font-size: 2.8rem;">
+            5 Days
+          </div>
+          <span class="stat-subtext">You have completed goals 5 days in a row!</span>
+        </div>
+      </div>
+
+      <!-- Longest Streak Card -->
+      <div class="stat-card" style="padding: 2rem;">
+        <div class="stat-icon" style="background: rgba(168, 85, 247, 0.15); color: var(--secondary); font-size: 2.2rem; width: 64px; height: 64px;">
+          🏆
+        </div>
+        <div class="stat-info">
+          <span class="stat-label">All-Time Best Streak</span>
+          <div class="stat-value" id="hero-longest-streak" style="color: var(--secondary); font-size: 2.8rem;">
+            7 Days
+          </div>
+          <span class="stat-subtext">Personal record. Keep pushing!</span>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- Positivity & Affirmation Card -->
+    <section class="affirmation-slider-card" aria-label="Mindset & Positivity">
+      <span style="font-size: 0.82rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--accent-emerald);">
+        🌱 Daily Student Affirmation
+      </span>
+      <p class="affirmation-text" id="progress-affirmation-text">
+        "Consistency transforms average into excellence."
+      </p>
+      <div style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 1.25rem;" id="progress-affirmation-author">
+        — Marcus Aurelius
+      </div>
+      <button class="btn btn-secondary btn-sm" id="shuffle-affirmation-btn">
+        <span>✨</span> Shuffle Affirmation
+      </button>
+    </section>
+
+    <!-- Section Header: 7-Day Consistency Chart -->
+    <div class="section-header">
+      <h2 class="section-title">
+        <span>📈</span> Weekly Consistency Rhythm
+      </h2>
+      <span class="section-badge">Completion % Mon — Sun</span>
+    </div>
+
+    <!-- Weekly Consistency Bar Chart -->
+    <section class="weekly-chart-card" aria-label="Weekly Consistency Chart">
+      <div class="weekly-bars-container" id="weekly-bars-container">
+        <!-- Bars dynamically generated via js/progress.js -->
+      </div>
+      <div style="display: flex; align-items: center; justify-content: space-between; margin-top: 1rem; font-size: 0.82rem; color: var(--text-muted);">
+        <span>🟢 80%+ High Consistency</span>
+        <span>🟡 50-79% Moderate</span>
+        <span>⚪ <strong>•</strong> Indicates Today</span>
+      </div>
+    </section>
+
+    <!-- Section Header: 30-Day Activity Heatmap -->
+    <div class="section-header">
+      <h2 class="section-title">
+        <span>🗓</span> 28-Day Habit Heatmap
+      </h2>
+      <span class="section-badge">Daily activity density</span>
+    </div>
+
+    <!-- Activity Heatmap Card -->
+    <section class="heatmap-card" aria-label="28-Day Heatmap">
+      <div style="display: flex; justify-content: space-between; align-items: center; font-size: 0.85rem; color: var(--text-muted);">
+        <span>Past 4 Weeks Performance</span>
+        <div style="display: flex; align-items: center; gap: 0.35rem;">
+          <span>Less</span>
+          <div style="width: 12px; height: 12px; background: var(--bg-tertiary); border-radius: 2px;"></div>
+          <div style="width: 12px; height: 12px; background: rgba(99, 102, 241, 0.25); border-radius: 2px;"></div>
+          <div style="width: 12px; height: 12px; background: rgba(99, 102, 241, 0.5); border-radius: 2px;"></div>
+          <div style="width: 12px; height: 12px; background: rgba(99, 102, 241, 0.75); border-radius: 2px;"></div>
+          <div style="width: 12px; height: 12px; background: #6366f1; border-radius: 2px;"></div>
+          <span>More</span>
+        </div>
+      </div>
+
+      <div class="heatmap-grid" id="heatmap-grid">
+        <!-- Generated via js/progress.js -->
+      </div>
+    </section>
+
+    <!-- Section Header: Milestone Badges -->
+    <div class="section-header">
+      <h2 class="section-title">
+        <span>🏅</span> Student Milestone Badges
+      </h2>
+      <span class="section-badge">Unlock as you stay consistent</span>
+    </div>
+
+    <!-- Milestone Badges Grid -->
+    <section class="badges-grid" id="badges-grid" aria-label="Student Badges">
+      <!-- Generated via js/progress.js -->
+    </section>
+
+  </main>
+
+  <!-- Toast Notification Container -->
+  <div class="toast-container" id="toast-container"></div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container footer-content">
+      <div>
+        <strong>Zenith Consistency Hub</strong> — Momentum is built one day, one checkmark, and one habit at a time.
+      </div>
+      <div>
+        100% Front-End • Data retained in <code>localStorage</code>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="js/data.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/progress.js"></script>
+</body>
+</html>

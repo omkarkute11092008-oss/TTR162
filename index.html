@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Zenith | Student Goal & Reality Tracker</title>
+  <meta name="description" content="A fluid, interactive multi-page goal and consistency tracker designed for students. Track daily goals, conquer the planning fallacy with the Reality Multiplier, and build unstoppable consistency.">
+  
+  <!-- Modern Google Typography -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- Core Design System -->
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- Ambient Background Glows -->
+  <div class="ambient-glow">
+    <div class="glow-orb glow-orb-1"></div>
+    <div class="glow-orb glow-orb-2"></div>
+  </div>
+
+  <!-- SVG Gradient Definitions for Circular Rings -->
+  <svg width="0" height="0" style="position: absolute;">
+    <defs>
+      <linearGradient id="progressGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stop-color="#6366f1" />
+        <stop offset="50%" stop-color="#a855f7" />
+        <stop offset="100%" stop-color="#10b981" />
+      </linearGradient>
+    </defs>
+  </svg>
+
+  <!-- Sticky Glassmorphic Navbar -->
+  <header class="navbar" id="main-nav">
+    <a href="index.html" class="nav-brand" title="Zenith Goal Tracker">
+      <div class="brand-icon">⚡</div>
+      <span class="brand-name">Zenith</span>
+      <span class="brand-tag">Student Pro</span>
+    </a>
+
+    <ul class="nav-links" id="nav-links">
+      <li>
+        <a href="index.html" class="nav-link active">
+          <span>🎯</span> Dashboard
+        </a>
+      </li>
+      <li>
+        <a href="reality.html" class="nav-link">
+          <span>⚡</span> Reality Multiplier <span class="badge">AI Pad</span>
+        </a>
+      </li>
+      <li>
+        <a href="progress.html" class="nav-link">
+          <span>🔥</span> Consistency & Streaks
+        </a>
+      </li>
+    </ul>
+
+    <div class="nav-actions">
+      <button class="btn btn-primary btn-sm" id="nav-add-goal-btn" title="Add a new goal">
+        <span>+</span> Add Goal
+      </button>
+      <button class="btn-icon" id="theme-toggle" title="Toggle Light/Dark Theme">
+        ☀️
+      </button>
+      <button class="btn-icon mobile-menu-btn" id="mobile-menu-btn" title="Toggle Navigation Menu">
+        ☰
+      </button>
+    </div>
+  </header>
+
+  <!-- Main Content Container -->
+  <main class="container">
+    
+    <!-- Dynamic Motivational Banner -->
+    <section class="motivation-banner" aria-label="Daily Motivation">
+      <div class="banner-content">
+        <div class="greeting-row">
+          <h1 class="greeting-text" id="user-greeting">Good morning, Alex ✨</h1>
+          <span class="greeting-time-tag">
+            <span>📅</span> Today's Mission
+          </span>
+        </div>
+        <p class="quote-text" id="banner-quote">"Small daily improvements over time lead to stunning, unstoppable results."</p>
+        <span class="quote-author" id="banner-author">— Robin Sharma</span>
+      </div>
+      <button class="btn btn-secondary btn-sm" id="refresh-quote-btn" title="Get another boost of motivation">
+        <span>✨</span> Inspire Me
+      </button>
+    </section>
+
+    <!-- Interactive Stopwatch / Focus Drawer Banner -->
+    <section class="focus-timer-banner" id="focus-timer-banner" style="display: none;" aria-label="Focus Stopwatch">
+      <div>
+        <span style="font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--primary-light); font-weight: 700;">
+          ⏱ Active Focus Session
+        </span>
+        <h3 id="timer-goal-title" style="font-size: 1.15rem; margin-top: 0.2rem;">Timing Task</h3>
+      </div>
+      <div class="timer-digits" id="timer-digits">00:00</div>
+      <div style="display: flex; gap: 0.5rem; align-items: center;">
+        <button class="btn btn-primary btn-sm" id="timer-toggle-btn">▶ Start</button>
+        <button class="btn btn-secondary btn-sm" id="timer-reset-btn">Reset</button>
+        <button class="btn btn-reality btn-sm" id="timer-log-btn" title="Finish and log actual minutes into Reality Multiplier">
+          ✓ Log to Reality
+        </button>
+      </div>
+    </section>
+
+    <!-- Summary KPI Cards Grid -->
+    <section class="stats-grid" aria-label="Dashboard Statistics">
+      
+      <!-- Total Goals Card -->
+      <div class="stat-card">
+        <div class="stat-icon total">📋</div>
+        <div class="stat-info">
+          <span class="stat-label">Total Goals</span>
+          <span class="stat-value" id="stat-total-goals">6</span>
+          <span class="stat-subtext">Active for today</span>
+        </div>
+      </div>
+
+      <!-- Completed Today Card -->
+      <div class="stat-card">
+        <div class="stat-icon done">✅</div>
+        <div class="stat-info">
+          <span class="stat-label">Completed</span>
+          <span class="stat-value" id="stat-done-goals" style="color: var(--accent-emerald);">3</span>
+          <span class="stat-subtext">Crushed today</span>
+        </div>
+      </div>
+
+      <!-- Consistency Dial (Circular Ring Gauge) -->
+      <div class="stat-card progress-ring-card">
+        <div class="progress-circle-wrap">
+          <svg class="progress-circle-svg" viewBox="0 0 60 60">
+            <circle class="circle-bg" cx="30" cy="30" r="26"></circle>
+            <circle class="circle-progress" id="circle-progress-bar" cx="30" cy="30" r="26"></circle>
+          </svg>
+          <div class="progress-percent-label" id="progress-percent-val">50%</div>
+        </div>
+        <div class="stat-info">
+          <span class="stat-label">Consistency</span>
+          <span class="stat-value">Score</span>
+          <span class="stat-subtext">Live completion rate</span>
+        </div>
+      </div>
+
+      <!-- Current Streak Card -->
+      <div class="stat-card">
+        <div class="stat-icon streak">🔥</div>
+        <div class="stat-info">
+          <span class="stat-label">Active Streak</span>
+          <span class="stat-value" id="stat-streak" style="color: var(--accent-amber);">5 Days</span>
+          <span class="stat-subtext">Consistency on fire!</span>
+        </div>
+      </div>
+
+      <!-- Reality Multiplier Preview -->
+      <div class="stat-card">
+        <div class="stat-icon reality">⚡</div>
+        <div class="stat-info">
+          <span class="stat-label">Reality Factor</span>
+          <span class="stat-value" id="stat-reality-mult" style="color: var(--reality-color);">1.5x</span>
+          <span class="stat-subtext">Auto-pads your schedule</span>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- Controls Bar: Filter Pills & Search -->
+    <section class="controls-bar" aria-label="Goal Filters">
+      <div class="filter-pills">
+        <button class="filter-pill active" data-category="all">All Goals</button>
+        <button class="filter-pill" data-category="study">📚 Study</button>
+        <button class="filter-pill" data-category="exercise">🏃 Exercise</button>
+        <button class="filter-pill" data-category="reading">📖 Reading</button>
+        <button class="filter-pill" data-category="personal">🧘 Personal</button>
+      </div>
+
+      <div class="search-sort-group">
+        <div class="search-box">
+          <span>🔍</span>
+          <input type="text" id="search-goals-input" placeholder="Search goals..." autocomplete="off">
+        </div>
+        <button class="btn btn-primary btn-sm" id="add-goal-btn">
+          <span>+</span> New Goal
+        </button>
+      </div>
+    </section>
+
+    <!-- Goals Grid Container -->
+    <section class="goals-grid" id="goals-grid" aria-label="Today's Goals">
+      <!-- Goals are dynamically generated from LocalStorage via js/app.js -->
+    </section>
+
+  </main>
+
+  <!-- ==========================================================================
+       MODAL 1: Add / Edit Goal Modal
+       ========================================================================== -->
+  <div class="modal-overlay" id="goal-modal" role="dialog" aria-modal="true" aria-labelledby="goal-modal-title">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title" id="goal-modal-title">Add New Student Goal</h3>
+        <button class="close-modal-btn" aria-label="Close dialog">&times;</button>
+      </div>
+      <form id="goal-form">
+        <div class="modal-body">
+          <div class="form-group">
+            <label class="form-label" for="goal-title-input">Goal Title *</label>
+            <input type="text" id="goal-title-input" class="form-input" placeholder="e.g. Solve Calculus Assignment 3" required>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label" for="goal-category-select">Category</label>
+              <select id="goal-category-select" class="form-select">
+                <option value="study">📚 Study</option>
+                <option value="exercise">🏃 Exercise</option>
+                <option value="reading">📖 Reading</option>
+                <option value="personal">🧘 Personal</option>
+              </select>
+            </div>
+            
+            <div class="form-group">
+              <label class="form-label" for="goal-priority-select">Priority</label>
+              <select id="goal-priority-select" class="form-select">
+                <option value="high">High (Urgent)</option>
+                <option value="medium" selected>Medium</option>
+                <option value="low">Low (Chill)</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="goal-est-input">
+              <span>Your Estimated Time (minutes) *</span>
+              <span style="font-weight: 400; color: var(--text-dim);">How long do you think it'll take?</span>
+            </label>
+            <input type="number" id="goal-est-input" class="form-input" min="5" max="360" value="30" required>
+          </div>
+
+          <!-- Reality Multiplier Live Advice Hint -->
+          <div class="reality-form-hint">
+            <span style="font-size: 1.3rem;">⚡</span>
+            <div>
+              <span style="font-weight: 700; color: #fff;">Reality Multiplier Suggestion:</span>
+              <div style="font-size: 0.8rem; margin-top: 0.15rem;">
+                Based on your past habits, allocate <strong id="form-reality-pad-val">~45 mins</strong> to finish without stress!
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="goal-notes-input">Notes / Action Steps (Optional)</label>
+            <textarea id="goal-notes-input" class="form-textarea" rows="2" placeholder="e.g. Problems 12-24, test edge cases, review slides"></textarea>
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary close-modal-btn">Cancel</button>
+          <button type="submit" class="btn btn-primary" id="save-goal-btn">Save Goal</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ==========================================================================
+       MODAL 2: Reality Log Modal (Triggered on Goal Completion)
+       ========================================================================== -->
+  <div class="modal-overlay" id="reality-log-modal" role="dialog" aria-modal="true" aria-labelledby="reality-log-title">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title" id="reality-log-title">
+          <span>⚡</span> Log Actual Time
+        </h3>
+        <button class="close-modal-btn" aria-label="Close dialog">&times;</button>
+      </div>
+      <div class="modal-body">
+        <p style="color: var(--text-muted); font-size: 0.95rem;">
+          Awesome work completing: <br>
+          <strong id="reality-log-task-title" style="color: #fff; font-size: 1.1rem; display: inline-block; margin-top: 0.3rem;">Goal Title</strong>
+        </p>
+
+        <div class="reality-log-box">
+          <span style="font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--reality-color); font-weight: 700;">
+            Initial Estimate
+          </span>
+          <div class="reality-log-stat" id="reality-log-estimated">30 mins</div>
+          <span style="font-size: 0.8rem; color: var(--text-muted);">
+            Predicted ratio: <span id="reality-predicted-ratio" style="color: var(--primary-light); font-weight: 700;">1.5x</span>
+          </span>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="reality-actual-input">
+            <span>How long did it ACTUALLY take? (minutes)</span>
+          </label>
+          <input type="number" id="reality-actual-input" class="form-input" min="1" max="480" value="45">
+          <span style="font-size: 0.78rem; color: var(--text-dim); margin-top: 0.2rem;">
+            The tracker learns your exact ratio and automatically recalibrates future estimates!
+          </span>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" id="confirm-reality-log-btn">
+          ✓ Complete & Learn Ratio
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification System -->
+  <div class="toast-container" id="toast-container"></div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container footer-content">
+      <div>
+        <strong>Zenith Goal Tracker</strong> — Designed for student consistency, focus, and realistic time planning.
+      </div>
+      <div>
+        Saved automatically to browser <code>localStorage</code> • Front-End Only
+      </div>
+    </div>
+  </footer>
+
+  <!-- Core Scripts -->
+  <script src="js/data.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

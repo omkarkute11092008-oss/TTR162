@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Reality Multiplier™ Studio | Zenith Goal Tracker</title>
+  <meta name="description" content="Conquer the planning fallacy. The Reality Multiplier learns your personal time ratio and automatically pads your study and habit deadlines.">
+  
+  <!-- Modern Google Typography -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- Core Design System -->
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body id="reality-page-view">
+
+  <!-- Ambient Background Glows -->
+  <div class="ambient-glow">
+    <div class="glow-orb glow-orb-1" style="background: radial-gradient(circle, var(--reality-color) 0%, transparent 70%);"></div>
+    <div class="glow-orb glow-orb-2"></div>
+  </div>
+
+  <!-- Sticky Glassmorphic Navbar -->
+  <header class="navbar">
+    <a href="index.html" class="nav-brand" title="Zenith Goal Tracker">
+      <div class="brand-icon">⚡</div>
+      <span class="brand-name">Zenith</span>
+      <span class="brand-tag">Reality Lab</span>
+    </a>
+
+    <ul class="nav-links" id="nav-links">
+      <li>
+        <a href="index.html" class="nav-link">
+          <span>🎯</span> Dashboard
+        </a>
+      </li>
+      <li>
+        <a href="reality.html" class="nav-link active">
+          <span>⚡</span> Reality Multiplier <span class="badge">Active</span>
+        </a>
+      </li>
+      <li>
+        <a href="progress.html" class="nav-link">
+          <span>🔥</span> Consistency & Streaks
+        </a>
+      </li>
+    </ul>
+
+    <div class="nav-actions">
+      <a href="index.html" class="btn btn-primary btn-sm">
+        <span>←</span> Today's Goals
+      </a>
+      <button class="btn-icon" id="theme-toggle" title="Toggle Light/Dark Theme">
+        ☀️
+      </button>
+      <button class="btn-icon mobile-menu-btn" id="mobile-menu-btn" title="Toggle Navigation Menu">
+        ☰
+      </button>
+    </div>
+  </header>
+
+  <!-- Main Container -->
+  <main class="container">
+
+    <!-- Hero Multiplier Card -->
+    <section class="hero-meter-card" aria-label="Personal Reality Ratio">
+      <div class="hero-meter-badge">
+        <span>⚡</span> Self-Calibrating Algorithm
+      </div>
+      <h1 style="font-size: 1.5rem; color: var(--text-muted); font-weight: 600; margin-bottom: 0.5rem;">
+        Your Personal Reality Multiplier™
+      </h1>
+      <div class="hero-multiplier-number" id="hero-multiplier-val">
+        1.55x
+      </div>
+      <p class="hero-multiplier-desc" id="hero-multiplier-desc">
+        Calculating your personal study and habit ratio...
+      </p>
+
+      <div class="multiplier-scale">
+        <span style="font-size: 0.8rem; font-weight: 700; color: var(--accent-emerald);">1.0x (Exact)</span>
+        <div class="scale-track">
+          <div class="scale-fill" id="hero-scale-fill" style="width: 45%;"></div>
+        </div>
+        <span style="font-size: 0.8rem; font-weight: 700; color: var(--reality-color);">3.0x (Heavy Buffer)</span>
+      </div>
+    </section>
+
+    <!-- Section Header: Category Breakdown -->
+    <div class="section-header">
+      <h2 class="section-title">
+        <span>📊</span> Category Multipliers
+      </h2>
+      <span class="section-badge">Breakdown by domain</span>
+    </div>
+
+    <!-- Category Bars Grid -->
+    <section class="category-bars-grid" id="category-bars-container" aria-label="Category Multipliers">
+      <!-- Populated via js/reality.js -->
+    </section>
+
+    <!-- Section Header: Interactive Simulator -->
+    <div class="section-header">
+      <h2 class="section-title">
+        <span>🧮</span> Realistic Time Simulator
+      </h2>
+      <span class="section-badge">Auto-pad upcoming tasks</span>
+    </div>
+
+    <!-- Live Time Simulator Grid -->
+    <section class="simulator-grid" aria-label="Estimate Simulator">
+      
+      <!-- Input Card -->
+      <div class="calc-card">
+        <h3 style="font-size: 1.2rem; margin-bottom: 1.25rem;">Plan Upcoming Task</h3>
+        
+        <div class="form-group" style="margin-bottom: 1rem;">
+          <label class="form-label" for="sim-est-input">
+            <span>Estimated Duration (Minutes)</span>
+          </label>
+          <input type="number" id="sim-est-input" class="form-input" min="5" max="360" value="45">
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="sim-cat-select">Category</label>
+          <select id="sim-cat-select" class="form-select">
+            <option value="study" selected>📚 Study & Problem Sets</option>
+            <option value="exercise">🏃 Workouts & Fitness</option>
+            <option value="reading">📖 Reading & Research</option>
+            <option value="personal">🧘 Personal Habits</option>
+          </select>
+        </div>
+
+        <div style="margin-top: 1.25rem; font-size: 0.85rem; color: var(--text-muted); line-height: 1.5;">
+          💡 <em>Pro-Tip: Students almost always underestimate debugging and essay writing by 1.6x due to the "Planning Fallacy". Zenith handles the buffer so you never miss deadlines.</em>
+        </div>
+      </div>
+
+      <!-- Result Card -->
+      <div class="calc-result-box">
+        <span style="font-size: 0.82rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--primary-light); font-weight: 700;">
+          Predicted Realistic Duration
+        </span>
+        <div class="padded-time-big" id="sim-padded-output">
+          72 min
+        </div>
+        <div style="font-size: 0.95rem; font-weight: 700; color: var(--reality-color);" id="sim-buffer-output">
+          +27 min recommended buffer
+        </div>
+        <div style="font-size: 0.82rem; color: var(--text-muted); margin-top: 0.75rem;" id="sim-ratio-output">
+          1.6x multiplier applied
+        </div>
+      </div>
+
+    </section>
+
+    <!-- Section Header: Task History Table -->
+    <div class="section-header">
+      <h2 class="section-title">
+        <span>📜</span> Reality Log & Training History
+      </h2>
+      <button class="btn btn-secondary btn-sm" id="reset-reality-btn" title="Reset sample calibration data">
+        🔄 Recalibrate Data
+      </button>
+    </div>
+
+    <!-- History Data Table -->
+    <section class="table-card" aria-label="Task History Table">
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>Task Name</th>
+            <th>Category</th>
+            <th>Estimated</th>
+            <th>Actual</th>
+            <th>Ratio & Variance</th>
+          </tr>
+        </thead>
+        <tbody id="history-table-body">
+          <!-- Populated via js/reality.js -->
+        </tbody>
+      </table>
+    </section>
+
+  </main>
+
+  <!-- Toast Notification Container -->
+  <div class="toast-container" id="toast-container"></div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container footer-content">
+      <div>
+        <strong>Zenith Reality Multiplier™</strong> — Eliminating the student planning fallacy with algorithmic time honesty.
+      </div>
+      <div>
+        Stored in <code>localStorage</code>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="js/data.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/reality.js"></script>
+</body>
+</html>
